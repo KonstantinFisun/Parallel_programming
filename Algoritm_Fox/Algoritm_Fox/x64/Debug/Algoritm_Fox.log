@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\kosty\source\repos\Algoritm_Fox\Algoritm_Fox\Source.cpp(60,13): warning C4101: start: неиспользованная локальная переменная
+C:\Users\kosty\source\repos\Algoritm_Fox\Algoritm_Fox\Source.cpp(60,20): warning C4101: stop: неиспользованная локальная переменная
+  Algoritm_Fox.vcxproj -> C:\Users\kosty\source\repos\Algoritm_Fox\x64\Debug\Algoritm_Fox.exe
