@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\kosty\source\repos\Multiplication_Matrix\Multiplication_Matrix\Source.cpp(10,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+C:\Users\kosty\source\repos\Multiplication_Matrix\Multiplication_Matrix\Source.cpp(11,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Multiplication_Matrix.vcxproj -> C:\Users\kosty\source\repos\Multiplication_Matrix\Debug\Multiplication_Matrix.exe
