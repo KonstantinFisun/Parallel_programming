@@ -1,0 +1,3 @@
+﻿  Main.cpp
+C:\Users\kosty\source\repos\Parallel_Sort++\Parallel_Sort++\Main.cpp(106,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+  Parallel_Sort++.vcxproj -> C:\Users\kosty\source\repos\Parallel_Sort++\x64\Debug\Parallel_Sort++.exe
