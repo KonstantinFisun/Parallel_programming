@@ -16,6 +16,18 @@ void BubbleSort(int* arr) {
     }
 }
 
+void BubbleParallelSort(int* arr) {
+#pragma omp parallel shared(arr)
+    {
+        for (int i = 0; i < SIZE - 1; i++) {
+            for (int j = 0; j < SIZE - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    swap(arr[j], arr[j + 1]);
+                }
+            }
+        }
+    }
+}
 
 void Shell(int* arr) //сортировка Шелла
 {
@@ -141,6 +153,10 @@ void main()
     t1 = omp_get_wtime();
     BubbleSort(c);
     cout << "Время линейного сортировка пузырька " << omp_get_wtime() - t1 << endl;
+
+    t1 = omp_get_wtime();
+    BubbleParallelSort(c);
+    cout << "Время параллельного сортировка пузырька " << omp_get_wtime() - t1 << endl;
 
     t1 = omp_get_wtime();
     Shell(d);
