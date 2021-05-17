@@ -58,6 +58,39 @@ void Shell(int* arr) //сортировка Шелла
     }
 }
 
+void ParallelShellSort(int* array, int n)
+{
+
+#pragma omp parallel firstprivate(n)
+    {
+        int m = omp_get_thread_num();
+        int step = n / 2;//инициализируем шаг. 
+        while (step > 0)//пока шаг не 0 
+        {
+#pragma omp parallel for
+            for (int i = 0; i < (n - step); i++)
+#pragma omp critical 
+            {
+                int j = i;
+                //будем идти начиная с i-го элемента 
+                while (j >= 0 && array[j] > array[j + step])
+                    //пока не пришли к началу массива 
+                    //и пока рассматриваемый элемент больше 
+                    //чем элемент находящийся на расстоянии шага 
+                {
+                    //меняем их местами 
+                    int temp = array[j];
+                    array[j] = array[j + step];
+                    array[j + step] = temp;
+                    // cout << "Поток " << m << " меняет местами элементы с номерами " << j << " и " << j + step << "\n";
+                    j--;
+                }
+            }
+            step = step / 2;//уменьшаем шаг 
+        }
+    }
+}
+
 // Функция быстрой сортировки
 void QuickSort(int* array, int left, int right)
 {
@@ -130,6 +163,8 @@ void main()
     int* b;
     int* c;
     int* d;
+    int* e;
+    int* f;
 
 
     a = (int*)malloc(sizeof(int*) * SIZE);
@@ -139,7 +174,10 @@ void main()
     c = (int*)malloc(sizeof(int*) * SIZE);
 
     d = (int*)malloc(sizeof(int*) * SIZE);
+
+    e = (int*)malloc(sizeof(int*) * SIZE);
     
+    f = (int*)malloc(sizeof(int*) * SIZE);
     setlocale(LC_ALL, "Russian");
 
     // Заполнение массива случайными числами
@@ -148,6 +186,8 @@ void main()
         b[i] = a[i];
         c[i] = a[i];
         d[i] = a[i];
+        e[i] = a[i];
+        f[i] = a[i];
     }
    
     
@@ -165,12 +205,16 @@ void main()
     cout << "Время линейного сортировка пузырька " << omp_get_wtime() - t1 << endl;
 
     t1 = omp_get_wtime();
-    BubbleParallelSort(c);
+    BubbleParallelSort(d);
     cout << "Время параллельного сортировка пузырька " << omp_get_wtime() - t1 << endl<<endl;
 
     t1 = omp_get_wtime();
-    Shell(d);
+    Shell(e);
     cout << "Время линейного сортировка Шелла " << omp_get_wtime() - t1 << endl;
+
+    t1 = omp_get_wtime();
+    ParallelShellSort(f, SIZE);
+    cout << "Время параллельного для Шелла " << omp_get_wtime() - t1 << endl;
 
     // Вывод элементов массива до сортировки
     /*
@@ -198,7 +242,16 @@ void main()
             cout << "Всё плохо, давай по новой" << endl;
             break;
         }
-   
+    for (int i = 0; i < SIZE; i++)
+        if (a[i] != e[i]) {
+            cout << "Всё плохо, давай по новой" << endl;
+            break;
+        }
+    for (int i = 0; i < SIZE; i++)
+        if (a[i] != f[i]) {
+            cout << "Всё плохо, давай по новой" << endl;
+            break;
+        }
 
     system("pause");
 }
